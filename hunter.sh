@@ -10,13 +10,12 @@
 touch /tmp/badservers.txt
 
 # These are the IP Ranges we'll be hunting through (note this will work with public or private IP ranges.
-IPADDR=("192.168.0.0/30")
+IPADDR=("82.145.59.0/24" "82.145.55.0/24" "217.147.92.0/24" "78.129.186.0/24" "109.169.64.128/25" "78.129.185.0/24" "130.185.144.0/24" "109.169.66.0/24" "78.129.212.0/24" "217.147.91.0/24" "78.129.208.0/24" "109.169.67.0/24")
+
 
 # Iterate through each range and push the IP's into a new array
 for i in "${IPADDR[@]}"
 	do
-	# Expand our ranges to list the full IP range
-
 		#Check each IP for open relay status
 		for line in `prips $i`
 			do
@@ -39,7 +38,7 @@ done
 
 # Did we catch anybody? If yes, email somebody to do something about them.
 if [[ $(find /tmp/badservers.txt -type f -size +1c 2>/dev/null) ]]; then
-	mail -r "From@youraddress.com" -s "List of Open DNS and SMTP Servers" "your@recipient.com" < /tmp/badservers.txt
+	mail -r "johnathan@iomart.com" -s "List of Open DNS and SMTP Servers" "johnathan@iomart.com" < /tmp/badservers.txt
 
 fi
 
